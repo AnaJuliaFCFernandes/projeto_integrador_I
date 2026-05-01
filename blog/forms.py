@@ -1,7 +1,7 @@
 from django import forms
+from .models import OrdemServico
 
-
-class PostForm(forms.ModelForm):
-
+class OrdemServicoForm(forms.ModelForm):
     class Meta:
-        fields = ('title', 'text',)
+        model = OrdemServico
+        fields = ('dispositivo', 'defeito_relatado', 'valor_orcamento', 'status')
