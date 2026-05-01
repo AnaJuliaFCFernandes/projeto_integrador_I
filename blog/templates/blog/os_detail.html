@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="post">
+        {% if ordem.data_entrada %}
+            <div class="date">Entrada em: {{ ordem.data_entrada }}</div>
+        {% endif %}
+
+        <!-- Link para editar esta OS específica -->
+        <a class="btn btn-default" href="{% url 'os_edit' pk=ordem.pk %}">
+            <span class="glyphicon glyphicon-pencil"></span> Editar OS
+        </a>
+
+        <h1>OS #{{ ordem.id }} - {{ ordem.dispositivo.modelo }}</h1>
+        <hr>
+        <p><strong>Cliente:</strong> {{ ordem.dispositivo.cliente.nome }}</p>
+        <p><strong>Telefone:</strong> {{ ordem.dispositivo.cliente.telefone }}</p>
+        <p><strong>Marca/Modelo:</strong> {{ ordem.dispositivo.marca }} - {{ ordem.dispositivo.modelo }}</p>
+        <p><strong>Defeito Relatado:</strong> {{ ordem.defeito_relatado|linebreaksbr }}</p>
+        <p><strong>Laudo Técnico:</strong> {{ ordem.laudo_tecnico|default:"Aguardando análise"|linebreaksbr }}</p>
+        <p><strong>Valor do Orçamento:</strong> R$ {{ ordem.valor_orcamento }}</p>
+        <p><strong>Status Atual:</strong> <span class="badge">{{ ordem.get_status_display }}</span></p>
+    </div>
+{% endblock %}

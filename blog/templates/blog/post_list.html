@@ -5,7 +5,7 @@
     {% for os in ordens %}
         <div class="post">
             <p>Data de Entrada: {{ os.data_entrada }}</p>
-            <h1><a href="">OS #{{ os.id }} - {{ os.dispositivo.modelo }}</a></h1>
+            <h1><a href="{% url 'os_detail' pk=os.pk %}">OS #{{ os.id }} - {{ os.dispositivo.modelo }}</a></h1>
             <p><strong>Cliente:</strong> {{ os.dispositivo.cliente.nome }}</p>
             <p><strong>Defeito:</strong> {{ os.defeito_relatado }}</p>
             <p><strong>Status:</strong> {{ os.get_status_display }}</p>
