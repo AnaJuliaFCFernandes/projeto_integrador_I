@@ -1,13 +1,14 @@
-                {% extends 'blog/base.html' %}
-                {% block content %}    
-                    {% for post in posts %}
-                        <div class="post">
-                            <div class="date">
-                                <p>published: {{ post.published_date }}</p>
-                            </div>
-                            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
-                            <p>{{ post.text|linebreaksbr }}</p>
-                        </div>
-                    {% endfor %}
-                {% endblock %}
-             
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h2>Ordens de Serviço Ativas</h2>
+    {% for os in ordens %}
+        <div class="post">
+            <p>Data de Entrada: {{ os.data_entrada }}</p>
+            <h1><a href="">OS #{{ os.id }} - {{ os.dispositivo.modelo }}</a></h1>
+            <p><strong>Cliente:</strong> {{ os.dispositivo.cliente.nome }}</p>
+            <p><strong>Defeito:</strong> {{ os.defeito_relatado }}</p>
+            <p><strong>Status:</strong> {{ os.get_status_display }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
