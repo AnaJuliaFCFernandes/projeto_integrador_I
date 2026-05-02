@@ -4,4 +4,4 @@ from .models import OrdemServico
 class OrdemServicoForm(forms.ModelForm):
     class Meta:
         model = OrdemServico
-        fields = ('dispositivo', 'defeito_relatado', 'valor_orcamento', 'status')
+        fields = ('dispositivo', 'defeito_relatado', 'laudo_tecnico', 'valor_orcamento', 'status')
