@@ -1,14 +1,48 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-    <h2>Ordens de Serviço Ativas</h2>
-    {% for os in ordens %}
-        <div class="post">
-            <p>Data de Entrada: {{ os.data_entrada }}</p>
-            <h1><a href="{% url 'os_detail' pk=os.pk %}">OS #{{ os.id }} - {{ os.dispositivo.modelo }}</a></h1>
-            <p><strong>Cliente:</strong> {{ os.dispositivo.cliente.nome }}</p>
-            <p><strong>Defeito:</strong> {{ os.defeito_relatado }}</p>
-            <p><strong>Status:</strong> {{ os.get_status_display }}</p>
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Painel de Ordens de Serviço</h2>
+            <hr>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th># OS</th>
+                        <th>Cliente</th>
+                        <th>Aparelho</th>
+                        <th>Status</th>
+                        <th>Data de Entrada</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for os in ordens %}
+                    <tr>
+                        <td><strong>{{ os.id }}</strong></td>
+                        <td>{{ os.dispositivo.cliente.nome }}</td>
+                        <td>{{ os.dispositivo.marca }} {{ os.dispositivo.modelo }}</td>
+                        <td>
+                            <span class="label 
+                                {% if os.status == 'aberta' %}label-danger
+                                {% elif os.status == 'manutencao' %}label-warning
+                                {% else %}label-success{% endif %}">
+                                {{ os.get_status_display }}
+                            </span>
+                        </td>
+                        <td>{{ os.data_entrada|date:"d/m/Y H:i" }}</td>
+                        <td>
+                            <a href="{% url 'os_detail' pk=os.pk %}" class="btn btn-xs btn-primary">Ver</a>
+                            <a href="{% url 'os_edit' pk=os.pk %}" class="btn btn-xs btn-default">Editar</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">Nenhuma ordem de serviço encontrada.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-    {% endfor %}
+    </div>
 {% endblock %}
