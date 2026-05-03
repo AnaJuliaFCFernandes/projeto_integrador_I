@@ -15,20 +15,26 @@
     <body>
         <div class="page-header">
             {% if user.is_authenticated %}
-        <!-- Este link agora fica no canto superior direito do retângulo azul -->
-                <div class="top-menu" style="float: right; color: white;">
-                    Olá, {{ user.username }}! 
-                    <!-- Formulário de Logout para atender aos requisitos de segurança do Django 6 -->
+                <!-- Informações de Login no canto direito -->
+                <div class="top-menu" style="float: right; color: white; text-align: right;">
+                    <p style="margin-bottom: 5px;">Olá, {{ user.username }}!</p>
+                    
+                    <!-- Botão de Sair (Formulário) -->
                     <form action="{% url 'logout' %}" method="post" style="display: inline;">
                         {% csrf_token %}
-                        <button type="submit" style="background: none; border: none; color: #bdc3c7; cursor: pointer; text-decoration: underline; margin-left: 10px; padding: 0;">
+                        <button type="submit" style="background: none; border: none; color: #bdc3c7; cursor: pointer; text-decoration: underline; padding: 0; font-size: 12px;">
                             Sair
                         </button>
                     </form>
                 </div>
+
+                <!-- Botão "+" de Nova OS no canto esquerdo -->
+                <a href="{% url 'os_nova' %}" class="top-menu" style="float: left; margin-right: 20px;">
+                    <span class="glyphicon glyphicon-plus" style="color: #3498db; font-size: 25px;"></span>
+                </a>
             {% endif %}
-    
-    <h1><a href="/">Assistência Técnica - Gestão</a></h1>
+
+            <h1><a href="/">Assistência Técnica - Gestão</a></h1>
         </div>
         <div class="content container">
             <div class="row">
