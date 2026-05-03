@@ -2,6 +2,12 @@
 <html>
     <head>
         <title>Assistência Técnica - Gestão</title>
+        <form method="GET" action="{% url 'post_list' %}" class="navbar-form">
+            <div class="form-group">
+                <input type="text" name="search" placeholder="Buscar OS ou Cliente..." class="form-control" value="{{ request.GET.search }}">
+            </div>
+            <button type="submit" class="btn btn-default">Buscar</button>
+        </form>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">

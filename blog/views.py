@@ -2,10 +2,21 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import OrdemServico, Cliente, Dispositivo # Importe seus novos modelos
 from .forms import OrdemServicoForm
+from django.db.models import Q
 
-# Lista todas as Ordens de Serviço (Página Inicial)
+
 def post_list(request):
-    ordens = OrdemServico.objects.all().order_by('-data_entrada')
+    query = request.GET.get('search')
+    if query:
+        # Filtra se o nome do cliente contém a busca OU se o modelo do dispositivo contém a busca
+        ordens = OrdemServico.objects.filter(
+            Q(dispositivo__cliente__nome__icontains=query) | 
+            Q(dispositivo__modelo__icontains=query) |
+            Q(id__icontains=query)
+        ).order_by('-data_entrada')
+    else:
+        ordens = OrdemServico.objects.all().order_by('-data_entrada')
+        
     return render(request, 'blog/post_list.html', {'ordens': ordens})
 
 # Detalhes de uma Ordem de Serviço específica
