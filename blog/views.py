@@ -3,8 +3,10 @@ from django.utils import timezone
 from .models import OrdemServico, Cliente, Dispositivo # Importe seus novos modelos
 from .forms import OrdemServicoForm
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def post_list(request):
     query = request.GET.get('search')
     if query:
@@ -20,11 +22,13 @@ def post_list(request):
     return render(request, 'blog/post_list.html', {'ordens': ordens})
 
 # Detalhes de uma Ordem de Serviço específica
+@login_required
 def os_detail(request, pk):
     ordem = get_object_or_404(OrdemServico, pk=pk)
     return render(request, 'blog/os_detail.html', {'ordem': ordem})
 
 # Criar nova Ordem de Serviço
+@login_required
 def os_nova(request):
     if request.method == "POST":
         form = OrdemServicoForm(request.POST)
@@ -38,6 +42,7 @@ def os_nova(request):
     return render(request, 'blog/os_edit.html', {'form': form})
 
 # Editar uma Ordem de Serviço existente
+@login_required
 def os_edit(request, pk):
     ordem = get_object_or_404(OrdemServico, pk=pk)
     if request.method == "POST":
