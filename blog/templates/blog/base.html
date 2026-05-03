@@ -15,9 +15,20 @@
     <body>
         <div class="page-header">
             {% if user.is_authenticated %}
-                <a href="{% url 'os_nova' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+        <!-- Este link agora fica no canto superior direito do retângulo azul -->
+                <div class="top-menu" style="float: right; color: white;">
+                    Olá, {{ user.username }}! 
+                    <!-- Formulário de Logout para atender aos requisitos de segurança do Django 6 -->
+                    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="background: none; border: none; color: #bdc3c7; cursor: pointer; text-decoration: underline; margin-left: 10px; padding: 0;">
+                            Sair
+                        </button>
+                    </form>
+                </div>
             {% endif %}
-                <h1><a href="/">Assistência Técnica - Gestão</a></h1>
+    
+    <h1><a href="/">Assistência Técnica - Gestão</a></h1>
         </div>
         <div class="content container">
             <div class="row">

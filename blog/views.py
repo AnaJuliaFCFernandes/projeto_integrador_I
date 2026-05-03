@@ -4,7 +4,7 @@ from .models import OrdemServico, Cliente, Dispositivo # Importe seus novos mode
 from .forms import OrdemServicoForm
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.decorators import login_required
+
 
 @login_required
 def post_list(request):
